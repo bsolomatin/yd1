@@ -24,6 +24,7 @@
    git clone https://github.com/bsolomatin/yd1.git
    cd yd1
    go run cmd/app/main.go
+   
 3. Сервис будет доступен по http://localhost:8080
 
 ## Отправка запросов
@@ -32,34 +33,39 @@
 {
     "expression": "2 + 3 * 4"
 }
+```
 
 Пример запроса curl
 ```bash
 curl -X POST http://localhost:8080/api/v1/calculate \
 -H "Content-Type: application/json" \
 -d '{"expression": "2 + 3 * 4"}'
+```
 
-Успешный ответ
+Успешный ответ с статусом 200
 ```json
 {
   "result" : 14
 }
-
-Неуспешный ответ
+```
+Неуспешный ответ с статусом 422
 ```json
 {
   "error": "Expression is not valid"
 }
+```
+Неуспешный ответ с статусом 500
+```json
 {
   "error": "Invalid request format"
 }
-
+```
 ## Тесты
 Для запуска тестов выполните команду
 ```bash
 go test -v ./...
 
-Проверка покрытия (85.7% для основного хендлера на текущий момент)
+Проверка покрытия
 ```bash
 go test -coverpkg=./... -coverprofile=coverage.out ./...
 go tool cover -html=coverage 
